@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Global System</title>
+</head>
+
+<body style="background:black;color:white;text-align:center">
+
+<h1>🚀 Global Investment System</h1>
+
+<h2 id="balance">Balance: 0</h2>
+
+<div id="tasks"></div>
+
+<script>
+// GET SAVED BALANCE
+let balance = localStorage.getItem("balance");
+if (balance === null) {
+  balance = 0;
+} else {
+  balance = Number(balance);
+}
+
+// DISPLAY BALANCE
+document.getElementById("balance").innerText = "Balance: " + balance;
+
+// TASKS
+const tasks = [
+  { title: "Watch Ad", reward: 500 },
+  { title: "Like Post", reward: 300 },
+  { title: "Daily Login", reward: 200 }
+];
+
+// LOAD TASKS
+function loadTasks(){
+  let html = "";
+
+  tasks.forEach((t, index) => {
+    html += `
+      <div style="margin:10px;padding:10px;border:1px solid white;">
+        <p>${t.title} - ${t.reward}</p>
+        <button onclick="completeTask(${t.reward})">
+          Complete
+        </button>
+      </div>
+    `;
+  });
+
+  document.getElementById("tasks").innerHTML = html;
+}
+
+// COMPLETE TASK
+function completeTask(reward){
+  balance = balance + reward;
+
+  // SAVE TO BROWSER
+  localStorage.setItem("balance", balance);
+
+  // UPDATE UI
+  document.getElementById("balance").innerText = "Balance: " + balance;
+}
+
+// INIT
+loadTasks();
+</script>
+
+</body>
+</html>
